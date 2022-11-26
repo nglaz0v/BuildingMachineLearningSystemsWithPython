@@ -9,7 +9,7 @@
 
 from __future__ import print_function
 import numpy as np
-from sklearn.cross_validation import KFold
+from sklearn.model_selection import KFold
 from sklearn.linear_model import LinearRegression, ElasticNet, Lasso, Ridge
 from sklearn.metrics import r2_score
 from sklearn.datasets import load_boston
@@ -32,9 +32,9 @@ for name, met in [
     r2_train = r2_score(y, p)
 
     # Now, we use 10 fold cross-validation to estimate generalization error
-    kf = KFold(len(x), n_folds=5)
+    kf = KFold(n_splits=5)
     p = np.zeros_like(y)
-    for train, test in kf:
+    for train, test in kf.split(x):
         met.fit(x[train], y[train])
         p[test] = met.predict(x[test])
 

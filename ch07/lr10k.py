@@ -9,7 +9,7 @@ import numpy as np
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.datasets import load_svmlight_file
 from sklearn.linear_model import LinearRegression
-from sklearn.cross_validation import KFold
+from sklearn.model_selection import KFold
 
 # Whether to use Elastic nets (otherwise, ordinary linear regression is used)
 
@@ -29,8 +29,8 @@ print('R2 on training, {:.2}'.format(r2_score(target, pred)))
 print('')
 
 pred = np.zeros_like(target)
-kf = KFold(len(target), n_folds=5)
-for train, test in kf:
+kf = KFold(n_splits=5)
+for train, test in kf.split(data):
     lr.fit(data[train], target[train])
     pred[test] = lr.predict(data[test])
 

@@ -31,7 +31,7 @@ lr = LinearRegression(fit_intercept=False)
 lr.fit(x, y)
 
 ax.plot([0, boston.data[:, 5].max() + 1],
-         [0, lr.predict(boston.data[:, 5].max() + 1)], '-', lw=4)
+         lr.predict([[0], [boston.data[:, 5].max() + 1]]), '-', lw=4)
 fig.savefig('Figure1.png')
 
 mse = mean_squared_error(y, lr.predict(x))
@@ -60,4 +60,3 @@ print("Root mean squared error (of training data): {:.3}".format(rmse))
 
 cod = r2_score(y, lr.predict(x))
 print('COD (on training data): {:.2}'.format(cod))
-

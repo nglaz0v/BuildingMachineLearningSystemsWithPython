@@ -10,7 +10,7 @@
 # The first edition of the book NumPy functions only for this operation. See
 # the file boston1numpy.py for that version.
 
-import numpy as np
+# import numpy as np
 from sklearn.datasets import load_boston
 from sklearn.linear_model import LinearRegression
 from matplotlib import pyplot as plt
@@ -24,8 +24,8 @@ lr = LinearRegression()
 lr.fit(x, y)
 
 # The instance member `residues_` contains the sum of the squared residues
-rmse = np.sqrt(lr.residues_/len(x))
-print('RMSE: {}'.format(rmse))
+# rmse = np.sqrt(lr.residues_/len(x))
+# print('RMSE: {}'.format(rmse))
 
 fig, ax = plt.subplots()
 # Plot a diagonal (for reference):

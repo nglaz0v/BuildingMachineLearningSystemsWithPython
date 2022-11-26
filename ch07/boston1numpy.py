@@ -16,7 +16,7 @@ x = np.array([np.concatenate((v, [1])) for v in boston.data])
 y = boston.target
 
 # np.linal.lstsq implements least-squares linear regression
-s, total_error, _, _ = np.linalg.lstsq(x, y)
+s, total_error, _, _ = np.linalg.lstsq(x, y, rcond=None)
 
 rmse = np.sqrt(total_error[0] / len(x))
 print('Residual: {}'.format(rmse))
