@@ -11,7 +11,7 @@ from matplotlib import pylab
 import numpy as np
 
 from sklearn import linear_model, decomposition
-from sklearn import lda
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
 logistic = linear_model.LogisticRegression()
 
@@ -159,7 +159,7 @@ def plot_simple_demo_lda():
 
     X = np.c_[(x1, x2)]
 
-    lda_inst = lda.LDA(n_components=1)
+    lda_inst = LinearDiscriminantAnalysis(n_components=1)
     Xtrans = lda_inst.fit_transform(X, good)
 
     Xg = Xtrans[good]
