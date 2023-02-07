@@ -10,7 +10,7 @@ import os
 import glob
 
 import numpy as np
-import scipy
+import scipy.fft
 import scipy.io.wavfile
 
 from utils import GENRE_DIR, CHART_DIR
@@ -27,13 +27,13 @@ def write_fft(fft_features, fn):
     data_fn = base_fn + ".fft"
 
     np.save(data_fn, fft_features)
-    print("Written "%data_fn)
+    print("Written %s" % data_fn)
 
 
 def create_fft(fn):
     sample_rate, X = scipy.io.wavfile.read(fn)
 
-    fft_features = abs(scipy.fft(X)[:1000])
+    fft_features = abs(scipy.fft.fft(X)[:1000])
     write_fft(fft_features, fn)
 
 
@@ -57,15 +57,15 @@ def plot_wav_fft(wav_filename, desc=None):
     plt.clf()
     plt.figure(num=None, figsize=(6, 4))
     sample_rate, X = scipy.io.wavfile.read(wav_filename)
-    spectrum = np.fft.fft(X)
-    freq = np.fft.fftfreq(len(X), 1.0 / sample_rate)
+    spectrum = scipy.fft.fft(X)
+    freq = scipy.fft.fftfreq(len(X), 1.0 / sample_rate)
 
     plt.subplot(211)
     num_samples = 200.0
     plt.xlim(0, num_samples / sample_rate)
     plt.xlabel("time [s]")
     plt.title(desc or wav_filename)
-    plt.plot(np.arange(num_samples) / sample_rate, X[:num_samples])
+    plt.plot(np.arange(num_samples) / sample_rate, X[:int(num_samples)])
     plt.grid(True)
 
     plt.subplot(212)
@@ -126,8 +126,10 @@ def plot_specgrams(base_dir=CHART_DIR):
 
 
 if __name__ == "__main__":
-    # for fn in glob.glob(os.path.join(sys.argv[1], "*.wav")):
-    #    create_fft(fn)
+    # for genre in ("blues", "classical", "country", "disco", "hiphop", "jazz",
+    #               "metal", "pop", "reggae", "rock"):
+    #     for fn in glob.glob(os.path.join(GENRE_DIR, genre, "*.wav")):
+    #         create_fft(fn)
 
     # plot_decomp()
 

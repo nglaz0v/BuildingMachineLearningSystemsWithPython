@@ -10,7 +10,7 @@ from collections import defaultdict
 
 from sklearn.metrics import precision_recall_curve, roc_curve
 from sklearn.metrics import auc
-from sklearn.cross_validation import ShuffleSplit
+from sklearn.model_selection import ShuffleSplit
 
 from sklearn.metrics import confusion_matrix
 
@@ -24,8 +24,7 @@ genre_list = GENRE_LIST
 def train_model(clf_factory, X, Y, name, plot=False):
     labels = np.unique(Y)
 
-    cv = ShuffleSplit(
-        n=len(X), n_iter=1, test_size=0.3, indices=True, random_state=0)
+    cv = ShuffleSplit(n_splits=1, test_size=0.3, random_state=0)
 
     train_errors = []
     test_errors = []
@@ -43,7 +42,7 @@ def train_model(clf_factory, X, Y, name, plot=False):
 
     cms = []
 
-    for train, test in cv:
+    for train, test in cv.split(X):
         X_train, y_train = X[train], Y[train]
         X_test, y_test = X[test], Y[test]
 
@@ -83,7 +82,7 @@ def train_model(clf_factory, X, Y, name, plot=False):
         for label in labels:
             print("Plotting %s" % genre_list[label])
             scores_to_sort = roc_scores[label]
-            median = np.argsort(scores_to_sort)[len(scores_to_sort) / 2]
+            median = np.argsort(scores_to_sort)[len(scores_to_sort) // 2]
 
             desc = "%s %s" % (name, genre_list[label])
             plot_pr(pr_scores[label][median], desc, precisions[label][median],
@@ -91,7 +90,7 @@ def train_model(clf_factory, X, Y, name, plot=False):
             plot_roc(roc_scores[label][median], desc, tprs[label][median],
                      fprs[label][median], label='%s vs rest' % genre_list[label])
 
-    all_pr_scores = np.asarray(pr_scores.values()).flatten()
+    all_pr_scores = np.asarray(list(pr_scores.values())).flatten()
     summary = (np.mean(scores), np.std(scores),
                np.mean(all_pr_scores), np.std(all_pr_scores))
     print("%.3f\t%.3f\t%.3f\t%.3f\t" % summary)

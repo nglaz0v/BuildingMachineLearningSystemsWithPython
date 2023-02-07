@@ -1,10 +1,10 @@
 CHART_DIR = charts
 
 fft:
-	python 01_fft_based_classifier.py
+	python3 01_fft_based_classifier.py
 
 ceps:
-	python 02_ceps_based_classifier.py
+	python3 02_ceps_based_classifier.py
 
 rocs_fft.png: 
 	convert $(CHART_DIR)/roc_Log_Reg_FFT_classical.png $(CHART_DIR)/roc_Log_Reg_FFT_jazz.png +append row1.png
@@ -22,15 +22,14 @@ roc_pr.png: fft
 	convert $(CHART_DIR)/pr_Log_Reg_FFT_country.png $(CHART_DIR)/roc_Log_Reg_FFT_country.png +append roc_pr.png
 
 sox sine_a.wav sine_b.wav sine_mix.wav:
-	sox --null -r 22050 sine_a.wav synth 0.2 sine 400
-	sox --null -r 22050 sine_b.wav synth 0.2 sine 3000
+	sox --null -r 22050 -b 16 -e signed-integer sine_a.wav synth 0.2 sine 400
+	sox --null -r 22050 -e signed-integer sine_b.wav synth 0.2 sine 3000
 	sox --combine mix --volume 1 sine_b.wav --volume 0.5 sine_a.wav sine_mix.wav
 
 fft_demo: sine_a.wav sine_b.wav sine_mix.wav
-	python fft.py 
+	# for d in ./genres/*; do for f in "$d"/*au; do sox $f "${f%.au}.wav"; rm -f $f; done; done
+	python3 fft.py
 	convert sine_a_wav_fft.png sine_b_wav_fft.png sine_mix_wav_fft.png -append fft_demo.png
 	
-	python fft.py /media/sf_P/pymlbook-data/09-genre-class/genres/jazz/jazz.00012.wav
+	python3 fft.py ./genres/jazz/jazz.00012.wav
 	mv jazz.00012_wav_fft.png fft_example.png
-	
-
