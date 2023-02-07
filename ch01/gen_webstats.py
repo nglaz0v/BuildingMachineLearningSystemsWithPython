@@ -18,7 +18,7 @@ from utils import DATA_DIR, CHART_DIR
 sp.random.seed(3)  # to reproduce the data later on
 
 x = sp.arange(1, 31*24)
-y = sp.array(200*(sp.sin(2*sp.pi*x/(7*24))), dtype=int)
+y = sp.array(200*(sp.sin(2*sp.pi*x/(7*24))), dtype=float)
 y += gamma.rvs(15, loc=0, scale=100, size=len(x))
 y += 2 * sp.exp(x/100.0)
 y = sp.ma.array(y, mask=[y<0])
