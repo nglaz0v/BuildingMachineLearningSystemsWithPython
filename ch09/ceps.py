@@ -12,7 +12,8 @@ import sys
 import numpy as np
 import scipy
 import scipy.io.wavfile
-from scikits.talkbox.features import mfcc
+# from scikits.talkbox.features import mfcc
+from scikits_talkbox import mfcc
 
 from utils import GENRE_DIR
 
@@ -24,7 +25,7 @@ def write_ceps(ceps, fn):
     base_fn, ext = os.path.splitext(fn)
     data_fn = base_fn + ".ceps"
     np.save(data_fn, ceps)
-    print("Written %s"%data_fn)
+    print("Written %s" % data_fn)
 
 
 def create_ceps(fn):
@@ -49,8 +50,12 @@ def read_ceps(genre_list, base_dir=GENRE_DIR):
 
 
 if __name__ == "__main__":
-    os.chdir(GENRE_DIR)
-    glob_wav = os.path.join(sys.argv[1], "*.wav")
-    print(glob_wav)
-    for fn in glob.glob(glob_wav):
-        create_ceps(fn)
+    # os.chdir(GENRE_DIR)
+    # glob_wav = os.path.join(sys.argv[1], "*.wav")
+    # print(glob_wav)
+    # for fn in glob.glob(glob_wav):
+    #     create_ceps(fn)
+    for genre in ("blues", "classical", "country", "disco", "hiphop", "jazz",
+                  "metal", "pop", "reggae", "rock"):
+        for fn in glob.glob(os.path.join(GENRE_DIR, genre, "*.wav")):
+            create_ceps(fn)
