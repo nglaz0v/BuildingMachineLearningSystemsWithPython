@@ -14,7 +14,7 @@ from load import load_dataset
 
 from sklearn.neighbors import KNeighborsClassifier
 
-from sklearn.cross_validation import cross_val_score
+from sklearn.model_selection import cross_val_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 

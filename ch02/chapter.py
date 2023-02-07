@@ -127,11 +127,11 @@ features, labels = load_dataset('seeds')
 
 from sklearn.neighbors import KNeighborsClassifier
 classifier = KNeighborsClassifier(n_neighbors=1)
-from sklearn.cross_validation import KFold
+from sklearn.model_selection import KFold
 
-kf = KFold(len(features), n_folds=5, shuffle=True)
+kf = KFold(n_splits=5, shuffle=True)
 means = []
-for training,testing in kf:
+for training,testing in kf.split(features):
    # We learn a model for this fold with `fit` and then apply it to the
    # testing data with `predict`:
    classifier.fit(features[training], labels[training])
@@ -151,7 +151,7 @@ classifier = KNeighborsClassifier(n_neighbors=1)
 classifier = Pipeline([('norm', StandardScaler()), ('knn', classifier)])
 
 means = []
-for training,testing in kf:
+for training,testing in kf.split(features):
     # We learn a model for this fold with `fit` and then apply it to the
     # testing data with `predict`:
     classifier.fit(features[training], labels[training])
