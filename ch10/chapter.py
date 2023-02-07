@@ -61,9 +61,9 @@ clf = Pipeline([('preproc', StandardScaler()),
                 ('classifier', LogisticRegression())])
 
 
-from sklearn import cross_validation
-cv = cross_validation.LeaveOneOut(len(images))
-scores = cross_validation.cross_val_score(
+from sklearn import model_selection
+cv = model_selection.LeaveOneOut()
+scores = model_selection.cross_val_score(
     clf, features, labels, cv=cv)
 print('Accuracy: {:.1%}'.format(scores.mean()))
 # Accuracy: 81.1%
@@ -94,7 +94,7 @@ for im in images:
       ]))
 
 
-scores = cross_validation.cross_val_score(
+scores = model_selection.cross_val_score(
     clf, features, labels, cv=cv)
 print('Accuracy: {:.1%}'.format(scores.mean()))
 # Accuracy: 95.6%
@@ -132,15 +132,14 @@ for ci,i in enumerate(range(0,90,10)):
 
 
 
-from sklearn.grid_search import GridSearchCV
+from sklearn.model_selection import GridSearchCV
 C_range = 10.0 ** np.arange(-4, 3)
 grid = GridSearchCV(LogisticRegression(), param_grid={'C' : C_range})
 clf = Pipeline([('preproc', StandardScaler()),
                ('classifier', grid)])
 
-cv = cross_validation.KFold(len(features), 5,
-                     shuffle=True, random_state=123)
-scores = cross_validation.cross_val_score(
+cv = model_selection.KFold(5, shuffle=True, random_state=123)
+scores = model_selection.cross_val_score(
    clf, features, labels, cv=cv)
 print('Accuracy: {:.1%}'.format(scores.mean()))
 
@@ -178,7 +177,7 @@ for d in alldescriptors:
   )
 # build single array and convert to float
 features = np.array(features, dtype=float)
-scores = cross_validation.cross_val_score(
+scores = model_selection.cross_val_score(
    clf, features, labels, cv=cv)
 print('Accuracy: {:.1%}'.format(scores.mean()))
 # Accuracy: 62.6%

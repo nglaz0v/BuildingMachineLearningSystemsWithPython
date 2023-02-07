@@ -8,11 +8,11 @@
 from __future__ import print_function
 import mahotas as mh
 from glob import glob
-from sklearn import cross_validation
+from sklearn import model_selection
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-from sklearn.grid_search import GridSearchCV
+from sklearn.model_selection import GridSearchCV
 import numpy as np
 
 basedir = 'AnimTransDistr'
@@ -57,8 +57,8 @@ for im, ell in images():
 ifeatures = np.array(ifeatures)
 labels = np.array(labels)
 
-cv = cross_validation.KFold(len(ifeatures), 5, shuffle=True, random_state=123)
-scores0 = cross_validation.cross_val_score(
+cv = model_selection.KFold(len(ifeatures), 5, shuffle=True, random_state=123)
+scores0 = model_selection.cross_val_score(
     clf, ifeatures, labels, cv=cv)
 print('Accuracy (5 fold x-val) with Logistic Regression [image features]: {:.1%}'.format(
     scores0.mean()))
@@ -94,7 +94,7 @@ for d in alldescriptors:
     sfeatures.append(np.bincount(c, minlength=k))
 sfeatures = np.array(sfeatures, dtype=float)
 print('predicting...')
-score_SURF = cross_validation.cross_val_score(
+score_SURF = model_selection.cross_val_score(
     clf, sfeatures, labels, cv=cv).mean()
 print('Accuracy (5 fold x-val) with Logistic Regression [SURF features]: {:.1%}'.format(
     score_SURF.mean()))
@@ -102,7 +102,7 @@ print('Accuracy (5 fold x-val) with Logistic Regression [SURF features]: {:.1%}'
 
 print('Performing classification with all features combined...')
 allfeatures = np.hstack([sfeatures, ifeatures])
-score_SURF_global = cross_validation.cross_val_score(
+score_SURF_global = model_selection.cross_val_score(
     clf, allfeatures, labels, cv=cv).mean()
 print('Accuracy (5 fold x-val) with Logistic Regression [All features]: {:.1%}'.format(
     score_SURF_global.mean()))

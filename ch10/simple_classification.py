@@ -51,19 +51,19 @@ haralick_plus_chists = np.hstack([chists, haralicks])
 clf = Pipeline([('preproc', StandardScaler()),
                 ('classifier', LogisticRegression())])
 
-from sklearn import cross_validation
-cv = cross_validation.LeaveOneOut(len(images))
-scores = cross_validation.cross_val_score(
+from sklearn import model_selection
+cv = model_selection.LeaveOneOut()
+scores = model_selection.cross_val_score(
     clf, haralicks, labels, cv=cv)
 print('Accuracy (Leave-one-out) with Logistic Regression [haralick features]: {:.1%}'.format(
     scores.mean()))
 
-scores = cross_validation.cross_val_score(
+scores = model_selection.cross_val_score(
     clf, chists, labels, cv=cv)
 print('Accuracy (Leave-one-out) with Logistic Regression [color histograms]: {:.1%}'.format(
     scores.mean()))
 
-scores = cross_validation.cross_val_score(
+scores = model_selection.cross_val_score(
     clf, haralick_plus_chists, labels, cv=cv)
 print('Accuracy (Leave-one-out) with Logistic Regression [texture features + color histograms]: {:.1%}'.format(
     scores.mean()))
