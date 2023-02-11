@@ -34,7 +34,7 @@ fft_demo: sine_a.wav sine_b.wav sine_mix.wav
 	mv jazz.00012_wav_fft.png fft_example.png
 
 au2wav:
-	bash -c "for d in ./genres/*; do for f in "\$$d"/*au; do sox \$$f "\$${f%.au}.wav"; rm -f \$$f; done; done"
+	bash -c "for d in ./genres/*; do for f in "\$$d"/*au; do echo \$$f; sox \$$f "\$${f%.au}.wav"; rm -f \$$f; done; done"
 
 npy_fft:
 	python3 fft.py --all

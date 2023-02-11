@@ -99,7 +99,7 @@ def train_model(clf_factory, X, Y, name, plot=False):
 
 
 def create_model():
-    from sklearn.linear_model.logistic import LogisticRegression
+    from sklearn.linear_model import LogisticRegression
     clf = LogisticRegression()
 
     return clf
