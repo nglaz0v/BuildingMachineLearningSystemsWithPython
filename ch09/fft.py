@@ -126,12 +126,14 @@ def plot_specgrams(base_dir=CHART_DIR):
 
 
 if __name__ == "__main__":
-    # for genre in ("blues", "classical", "country", "disco", "hiphop", "jazz",
-    #               "metal", "pop", "reggae", "rock"):
-    #     for fn in glob.glob(os.path.join(GENRE_DIR, genre, "*.wav")):
-    #         create_fft(fn)
+    if (len(sys.argv) == 2) and (sys.argv[1] == "--all"):
+        for genre in ("blues", "classical", "country", "disco", "hiphop",
+                      "jazz", "metal", "pop", "reggae", "rock"):
+            for fn in glob.glob(os.path.join(GENRE_DIR, genre, "*.wav")):
+                create_fft(fn)
 
-    # plot_decomp()
+        # plot_decomp()
+        sys.exit(0)
 
     if len(sys.argv) > 1:
         plot_wav_fft(sys.argv[1], desc="some sample song")

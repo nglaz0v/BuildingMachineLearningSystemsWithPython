@@ -27,9 +27,17 @@ sox sine_a.wav sine_b.wav sine_mix.wav:
 	sox --combine mix --volume 1 sine_b.wav --volume 0.5 sine_a.wav sine_mix.wav
 
 fft_demo: sine_a.wav sine_b.wav sine_mix.wav
-	# for d in ./genres/*; do for f in "$d"/*au; do sox $f "${f%.au}.wav"; rm -f $f; done; done
 	python3 fft.py
 	convert sine_a_wav_fft.png sine_b_wav_fft.png sine_mix_wav_fft.png -append fft_demo.png
 	
 	python3 fft.py ./genres/jazz/jazz.00012.wav
 	mv jazz.00012_wav_fft.png fft_example.png
+
+au2wav:
+	bash -c "for d in ./genres/*; do for f in "\$$d"/*au; do sox \$$f "\$${f%.au}.wav"; rm -f \$$f; done; done"
+
+npy_fft:
+	python3 fft.py --all
+
+npy_ceps:
+	python3 ceps.py
