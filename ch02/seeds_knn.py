@@ -25,6 +25,7 @@ def cross_validate(features, labels):
 
     return error / 10.0
 
+
 error = cross_validate(features, labels)
 print('Ten fold cross-validated error was {0:.1%}.'.format(error))
 

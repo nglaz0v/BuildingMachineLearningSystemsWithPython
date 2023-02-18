@@ -5,13 +5,13 @@
 #
 # It is made available under the MIT License
 
-COLOUR_FIGURE = False
-
 from matplotlib import pyplot as plt
 from matplotlib.colors import ListedColormap
 from load import load_dataset
 import numpy as np
 from knn import fit_model, predict
+
+COLOUR_FIGURE = False
 
 feature_names = [
     'area',
@@ -50,7 +50,7 @@ def plot_decision(features, labels):
         cmap = ListedColormap([(1., .6, .6), (.6, 1., .6), (.6, .6, 1.)])
     else:
         cmap = ListedColormap([(1., 1., 1.), (.2, .2, .2), (.6, .6, .6)])
-    fig,ax = plt.subplots()
+    fig, ax = plt.subplots()
     ax.set_xlim(x0, x1)
     ax.set_ylim(y0, y1)
     ax.set_xlabel(feature_names[0])
@@ -63,17 +63,17 @@ def plot_decision(features, labels):
         for lab, ma in zip(range(3), "Do^"):
             ax.plot(features[labels == lab, 0], features[
                      labels == lab, 2], ma, c=(1., 1., 1.))
-    return fig,ax
+    return fig, ax
 
 
 features, labels = load_dataset('seeds')
 names = sorted(set(labels))
 labels = np.array([names.index(ell) for ell in labels])
 
-fig,ax = plot_decision(features, labels)
+fig, ax = plot_decision(features, labels)
 fig.savefig('figure4.png')
 
 features -= features.mean(0)
 features /= features.std(0)
-fig,ax = plot_decision(features, labels)
+fig, ax = plot_decision(features, labels)
 fig.savefig('figure5.png')

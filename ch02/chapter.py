@@ -20,19 +20,17 @@ target = data.target
 target_names = data.target_names
 
 for t in range(3):
- if t == 0:
-     c = 'r'
-     marker = '>'
- elif t == 1:
-     c = 'g'
-     marker = 'o'
- elif t == 2:
-     c = 'b'
-     marker = 'x'
- plt.scatter(features[target == t, 0],
-            features[target == t, 1],
-            marker=marker,
-            c=c)
+    if t == 0:
+        c = 'r'
+        marker = '>'
+    elif t == 1:
+        c = 'g'
+        marker = 'o'
+    elif t == 2:
+        c = 'b'
+        marker = 'x'
+    plt.scatter(features[target == t, 0], features[target == t, 1],
+                marker=marker, c=c)
 # We use NumPy fancy indexing to get an array of strings:
 labels = target_names[target]
 
@@ -43,7 +41,7 @@ plength = features[:, 2]
 is_setosa = (labels == 'setosa')
 
 # This is the important step:
-max_setosa =plength[is_setosa].max()
+max_setosa = plength[is_setosa].max()
 min_non_setosa = plength[~is_setosa].min()
 print('Maximum of setosa: {0}.'.format(max_setosa))
 
@@ -59,7 +57,7 @@ is_virginica = (labels == 'virginica')
 best_acc = -1.0
 for fi in range(features.shape[1]):
     # We are going to test all possible thresholds
-    thresh = features[:,fi]
+    thresh = features[:, fi]
     for t in thresh:
 
         # Get the vector for feature `fi`
@@ -81,6 +79,7 @@ for fi in range(features.shape[1]):
             best_reverse = reverse
 
 print(best_fi, best_t, best_reverse, best_acc)
+
 
 def is_virginica_test(fi, t, reverse, example):
     'Apply threshold model to a new example'
@@ -131,16 +130,16 @@ from sklearn.model_selection import KFold
 
 kf = KFold(n_splits=5, shuffle=True)
 means = []
-for training,testing in kf.split(features):
-   # We learn a model for this fold with `fit` and then apply it to the
-   # testing data with `predict`:
-   classifier.fit(features[training], labels[training])
-   prediction = classifier.predict(features[testing])
+for training, testing in kf.split(features):
+    # We learn a model for this fold with `fit` and then apply it to the
+    # testing data with `predict`:
+    classifier.fit(features[training], labels[training])
+    prediction = classifier.predict(features[testing])
 
-   # np.mean on an array of booleans returns fraction
- # of correct decisions for this fold:
-   curmean = np.mean(prediction == labels[testing])
-   means.append(curmean)
+    # np.mean on an array of booleans returns fraction
+    # of correct decisions for this fold:
+    curmean = np.mean(prediction == labels[testing])
+    means.append(curmean)
 print('Mean accuracy: {:.1%}'.format(np.mean(means)))
 
 
@@ -151,7 +150,7 @@ classifier = KNeighborsClassifier(n_neighbors=1)
 classifier = Pipeline([('norm', StandardScaler()), ('knn', classifier)])
 
 means = []
-for training,testing in kf.split(features):
+for training, testing in kf.split(features):
     # We learn a model for this fold with `fit` and then apply it to the
     # testing data with `predict`:
     classifier.fit(features[training], labels[training])

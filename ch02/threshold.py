@@ -20,7 +20,7 @@ def fit_model(features, labels):
         for t in thresh:
             pred = (features[:, fi] > t)
 
-            # Measure the accuracy of this 
+            # Measure the accuracy of this
             acc = (pred == labels).mean()
 
             rev_acc = (pred == ~labels).mean()
@@ -48,6 +48,7 @@ def predict(model, features):
         return features[:, fi] <= t
     else:
         return features[:, fi] > t
+
 
 def accuracy(features, labels, model):
     '''Compute the accuracy of the model'''

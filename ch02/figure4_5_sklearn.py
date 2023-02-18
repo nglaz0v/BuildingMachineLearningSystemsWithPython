@@ -5,13 +5,13 @@
 #
 # It is made available under the MIT License
 
-COLOUR_FIGURE = False
-
 from matplotlib import pyplot as plt
 from matplotlib.colors import ListedColormap
 from load import load_dataset
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
+
+COLOUR_FIGURE = False
 
 feature_names = [
     'area',
@@ -44,13 +44,13 @@ def plot_decision(features, labels, num_neighbors=1):
     X, Y = np.meshgrid(X, Y)
 
     model = KNeighborsClassifier(num_neighbors)
-    model.fit(features[:, (0,2)], labels)
+    model.fit(features[:, (0, 2)], labels)
     C = model.predict(np.vstack([X.ravel(), Y.ravel()]).T).reshape(X.shape)
     if COLOUR_FIGURE:
         cmap = ListedColormap([(1., .7, .7), (.7, 1., .7), (.7, .7, 1.)])
     else:
         cmap = ListedColormap([(1., 1., 1.), (.2, .2, .2), (.6, .6, .6)])
-    fig,ax = plt.subplots()
+    fig, ax = plt.subplots()
     ax.set_xlim(x0, x1)
     ax.set_ylim(y0, y1)
     ax.set_xlabel(feature_names[0])
@@ -63,23 +63,23 @@ def plot_decision(features, labels, num_neighbors=1):
         for lab, ma in zip(range(3), "Do^"):
             ax.plot(features[labels == lab, 0], features[
                      labels == lab, 2], ma, c=(1., 1., 1.), ms=6)
-    return fig,ax
+    return fig, ax
 
 
 features, labels = load_dataset('seeds')
 names = sorted(set(labels))
 labels = np.array([names.index(ell) for ell in labels])
 
-fig,ax = plot_decision(features, labels)
+fig, ax = plot_decision(features, labels)
 fig.tight_layout()
 fig.savefig('figure4sklearn.png')
 
 features -= features.mean(0)
 features /= features.std(0)
-fig,ax = plot_decision(features, labels)
+fig, ax = plot_decision(features, labels)
 fig.tight_layout()
 fig.savefig('figure5sklearn.png')
 
-fig,ax = plot_decision(features, labels, 11)
+fig, ax = plot_decision(features, labels, 11)
 fig.tight_layout()
 fig.savefig('figure5sklearn_with_11_neighbors.png')

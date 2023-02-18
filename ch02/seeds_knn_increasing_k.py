@@ -22,7 +22,7 @@ from sklearn.preprocessing import StandardScaler
 features, labels = load_dataset('seeds')
 
 # Values of k to consider: all in 1 .. 160
-ks = np.arange(1,161)
+ks = np.arange(1, 161)
 
 # We build a classifier object here with the default number of neighbors
 # (It happens to be 5, but it does not matter as we will be changing it below

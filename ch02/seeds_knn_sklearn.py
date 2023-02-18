@@ -38,7 +38,7 @@ means = []
 # kf is a generator of pairs (training,testing) so that each iteration
 # implements a separate fold.
 kf = KFold(n_splits=3, shuffle=True)
-for training,testing in kf.split(features):
+for training, testing in kf.split(features):
     # We learn a model for this fold with `fit` and then apply it to the
     # testing data with `predict`:
     classifier.fit(features[training], labels[training])
@@ -87,4 +87,3 @@ print(cmat)
 # (Otherwise, result is rounded to 0)
 acc = cmat.trace()/float(cmat.sum())
 print('Accuracy: {0:.1%}'.format(acc))
-

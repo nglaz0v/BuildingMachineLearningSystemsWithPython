@@ -7,6 +7,7 @@
 
 import numpy as np
 
+
 # This function was called ``learn_model`` in the first edition
 def fit_model(k, features, labels):
     '''Learn a k-nn model'''
@@ -24,6 +25,7 @@ def plurality(xs):
     for k, v in counts.items():
         if v == maxv:
             return k
+
 
 # This function was called ``apply_model`` in the first edition
 def predict(model, features):

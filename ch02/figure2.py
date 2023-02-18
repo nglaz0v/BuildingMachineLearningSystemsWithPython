@@ -5,10 +5,11 @@
 #
 # It is made available under the MIT License
 
-COLOUR_FIGURE = False
-
 from matplotlib import pyplot as plt
 from sklearn.datasets import load_iris
+
+COLOUR_FIGURE = False
+
 data = load_iris()
 features = data.data
 feature_names = data.feature_names
@@ -46,15 +47,15 @@ x1 = features[:, f0].max() * 1.1
 y0 = features[:, f1].min() * .9
 y1 = features[:, f1].max() * 1.1
 
-fig,ax = plt.subplots()
+fig, ax = plt.subplots()
 ax.fill_between([t, x1], [y0, y0], [y1, y1], color=area2c)
 ax.fill_between([x0, t], [y0, y0], [y1, y1], color=area1c)
 ax.plot([t, t], [y0, y1], 'k--', lw=2)
 ax.plot([t2, t2], [y0, y1], 'k:', lw=2)
 ax.scatter(features[is_virginica, f0],
-            features[is_virginica, f1], c='b', marker='o', s=40)
+           features[is_virginica, f1], c='b', marker='o', s=40)
 ax.scatter(features[~is_virginica, f0],
-            features[~is_virginica, f1], c='r', marker='x', s=40)
+           features[~is_virginica, f1], c='r', marker='x', s=40)
 ax.set_ylim(y0, y1)
 ax.set_xlim(x0, x1)
 ax.set_xlabel(feature_names[f0])
