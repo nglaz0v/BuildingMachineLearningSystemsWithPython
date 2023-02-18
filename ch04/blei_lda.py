@@ -57,7 +57,7 @@ words = model.show_topic(max_topic, 64)
 create_cloud('cloud_blei_lda.png', words)
 
 num_topics_used = [len(model[doc]) for doc in corpus]
-fig,ax = plt.subplots()
+fig, ax = plt.subplots()
 ax.hist(num_topics_used, np.arange(42))
 ax.set_ylabel('Nr of documents')
 ax.set_xlabel('Nr of topics')
@@ -73,7 +73,7 @@ model1 = models.ldamodel.LdaModel(
     corpus, num_topics=NUM_TOPICS, id2word=corpus.id2word, alpha=ALPHA)
 num_topics_used1 = [len(model1[doc]) for doc in corpus]
 
-fig,ax = plt.subplots()
+fig, ax = plt.subplots()
 ax.hist([num_topics_used, num_topics_used1], np.arange(42))
 ax.set_ylabel('Nr of documents')
 ax.set_xlabel('Nr of topics')
@@ -83,4 +83,3 @@ ax.text(9, 223, r'default alpha')
 ax.text(26, 156, 'alpha=1.0')
 fig.tight_layout()
 fig.savefig('Figure_04_02.png')
-

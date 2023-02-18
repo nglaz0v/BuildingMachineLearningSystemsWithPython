@@ -32,8 +32,8 @@ model.save('wiki_hdp.pkl')
 
 # Compute the document/topic matrix
 topics = np.zeros((len(mm), model.num_topics))
-for di,doc in enumerate(mm):
+for di, doc in enumerate(mm):
     doc_top = model[doc]
-    for ti,tv in doc_top:
-        topics[di,ti] += tv
+    for ti, tv in doc_top:
+        topics[di, ti] += tv
 np.save('topics_hdp.npy', topics)

@@ -31,9 +31,11 @@ class DirectText(corpora.textcorpus.TextCorpus):
 
     def __len__(self):
         return len(self.input)
+
+
 try:
     dataset = sklearn.datasets.load_mlcomp("20news-18828", "train",
-                                       mlcomp_root='./data')
+                                           mlcomp_root='./data')
 except:
     print("Newsgroup data not found.")
     print("Please download from http://mlcomp.org/datasets/379")
