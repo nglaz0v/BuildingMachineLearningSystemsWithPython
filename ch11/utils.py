@@ -16,4 +16,3 @@ CHART_DIR = os.path.join(
 for d in [DATA_DIR, CHART_DIR]:
     if not os.path.exists(d):
         os.mkdir(d)
-

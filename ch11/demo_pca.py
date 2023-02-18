@@ -180,6 +180,7 @@ def plot_simple_demo_lda():
     filename = "lda_demo.png"
     pylab.savefig(os.path.join(CHART_DIR, filename), bbox_inches="tight")
 
+
 if __name__ == '__main__':
     plot_simple_demo_1()
     plot_simple_demo_2()

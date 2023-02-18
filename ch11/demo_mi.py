@@ -120,6 +120,7 @@ def plot_mi_demo():
     filename = "mi_demo_2.png"
     pylab.savefig(os.path.join(CHART_DIR, filename), bbox_inches="tight")
 
+
 if __name__ == '__main__':
     plot_entropy()
     plot_mi_demo()

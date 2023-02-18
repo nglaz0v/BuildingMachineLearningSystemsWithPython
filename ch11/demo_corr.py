@@ -86,5 +86,6 @@ def plot_correlation_demo():
     filename = "corr_demo_2.png"
     pylab.savefig(os.path.join(CHART_DIR, filename), bbox_inches="tight")
 
+
 if __name__ == '__main__':
     plot_correlation_demo()

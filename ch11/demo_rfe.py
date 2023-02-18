@@ -17,6 +17,6 @@ clf = LogisticRegression()
 clf.fit(X, y)
 
 for i in range(1, 11):
-    selector = RFE(clf, i)
+    selector = RFE(clf, n_features_to_select=i)
     selector = selector.fit(X, y)
     print("%i\t%s\t%s" % (i, selector.support_, selector.ranking_))
