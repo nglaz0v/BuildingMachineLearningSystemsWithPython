@@ -47,7 +47,6 @@ def apriori(dataset, minsupport, maxsize):
     for k in baskets:
         baskets[k] = frozenset(baskets[k])
 
-
     # Valid are all elements whose support is >= minsupport
     valid = set()
     for el, c in baskets.items():
@@ -85,6 +84,7 @@ def apriori(dataset, minsupport, maxsize):
 # A namedtuple to collect all values that may be interesting
 AssociationRule = namedtuple('AssociationRule', ['antecendent', 'consequent', 'base', 'py_x', 'lift'])
 
+
 def association_rules(dataset, freqsets, support, minlift):
     '''
     for assoc_rule in association_rules(dataset, freqsets, support, minlift):
@@ -116,4 +116,3 @@ def association_rules(dataset, freqsets, support, minlift):
             lift = py_x / base
             if lift > minlift:
                 yield AssociationRule(antecendent, consequent, base, py_x, lift)
-

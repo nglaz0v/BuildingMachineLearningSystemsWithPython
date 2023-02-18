@@ -13,6 +13,7 @@ from sklearn import metrics
 
 from norm import NormalizePositive
 
+
 def predict(otrain):
     binary = (otrain > 0)
     norm = NormalizePositive(axis=1)
@@ -37,9 +38,10 @@ def predict(otrain):
                 n //= 2
                 n += 1
                 revs = revs[:n]
-                filled[u,m] = np.mean(revs)
+                filled[u, m] = np.mean(revs)
 
     return norm.inverse_transform(filled)
+
 
 def main(transpose_inputs=False):
     train, test = get_train_test(random_state=12)
@@ -52,6 +54,7 @@ def main(transpose_inputs=False):
     print('R2 score (binary {} neighbours): {:.1%}'.format(
         ('movie' if transpose_inputs else 'user'),
         r2))
+
 
 if __name__ == '__main__':
     main()

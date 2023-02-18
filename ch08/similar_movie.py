@@ -63,6 +63,7 @@ def all_estimates(reviews, k=1):
             estimates[u, m] = nn_movie(ureviews, reviews, u, m, k)
     return estimates
 
+
 if __name__ == '__main__':
     from load_ml100k import load
     reviews = load()

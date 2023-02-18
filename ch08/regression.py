@@ -25,16 +25,16 @@ def predict(train):
         curtrain = np.delete(train, u, axis=0)
         bu = binary[u]
         if np.sum(bu) > 5:
-            reg.fit(curtrain[:,bu].T, train[u, bu])
+            reg.fit(curtrain[:, bu].T, train[u, bu])
 
             # Fill the values that were not there already
-            filled[u, ~bu] = reg.predict(curtrain[:,~bu].T)
+            filled[u, ~bu] = reg.predict(curtrain[:, ~bu].T)
     return norm.inverse_transform(filled)
 
 
 def main(transpose_inputs=False):
     from load_ml100k import get_train_test
-    train,test = get_train_test(random_state=12)
+    train, test = get_train_test(random_state=12)
     if transpose_inputs:
         train = train.T
         test = test.T
@@ -44,6 +44,7 @@ def main(transpose_inputs=False):
     print('R2 score ({} regression): {:.1%}'.format(
         ('movie' if transpose_inputs else 'user'),
         r2))
+
 
 if __name__ == '__main__':
     main()

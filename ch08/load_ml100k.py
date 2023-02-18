@@ -20,11 +20,12 @@ def load():
     # load the data, but we then convert to a more traditional array before
     # returning
     data = np.loadtxt('data/ml-100k/u.data')
-    ij = data[:, :2]
+    ij = data[:, :2].astype(int)
     ij -= 1  # original data is in 1-based system
     values = data[:, 2]
     reviews = sparse.csc_matrix((values, ij.T)).astype(float)
     return reviews.toarray()
+
 
 def get_train_test(reviews=None, random_state=None):
     '''Split data into training & testing
@@ -47,7 +48,7 @@ def get_train_test(reviews=None, random_state=None):
 
     if reviews is None:
         reviews = load()
-    U,M = np.where(reviews)
+    U, M = np.where(reviews)
     test_idxs = np.array(r.sample(range(len(U)), len(U)//10))
     train = reviews.copy()
     train[U[test_idxs], M[test_idxs]] = 0
@@ -56,4 +57,3 @@ def get_train_test(reviews=None, random_state=None):
     test[U[test_idxs], M[test_idxs]] = reviews[U[test_idxs], M[test_idxs]]
 
     return train, test
-

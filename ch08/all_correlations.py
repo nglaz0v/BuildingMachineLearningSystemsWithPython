@@ -7,12 +7,14 @@
 
 import numpy as np
 
+
 def all_correlations(y, X):
     from scipy import spatial
     y = np.atleast_2d(y)
     sp = spatial.distance.cdist(X, y, 'correlation')
     # The "correlation distance" is 1 - corr(x,y); so we invert that to obtain the correlation
     return 1 - sp.ravel()
+
 
 # This is the version in the book (1st Edition):
 def all_correlations_book_version(bait, target):
@@ -24,6 +26,7 @@ def all_correlations_book_version(bait, target):
     return np.array(
         [np.corrcoef(bait, c)[0, 1]
          for c in target])
+
 
 # This is a faster, but harder to read, implementation:
 def all_correlations_fast_no_scipy(y, X):
@@ -44,5 +47,3 @@ def all_correlations_fast_no_scipy(y, X):
     xs_ += 1e-5  # Handle zeros in x
 
     return (xy - x_ * y_ * n) / n / xs_ / ys_
-
-

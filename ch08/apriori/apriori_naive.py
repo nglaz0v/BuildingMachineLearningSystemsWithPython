@@ -72,15 +72,16 @@ def rules_from_itemset(itemset, dataset, minlift=1.):
         # ccount : consequent count
         ccount = 0.0
         for d in dataset:
-          if item in d: base += 1
-          if d.issuperset(itemset): ccount += 1
-          if d.issuperset(antecedent): acount += 1
+            if item in d: base += 1
+            if d.issuperset(itemset): ccount += 1
+            if d.issuperset(antecedent): acount += 1
         base /= nr_transactions
         p_y_given_x = ccount/acount
         lift = p_y_given_x / base
         if lift > minlift:
             print('Rule {0} ->  {1} has lift {2}'
-                  .format(antecedent, consequent,lift))
+                  .format(antecedent, consequent, lift))
+
 
 for itemset in freqsets:
     if len(itemset) > 1:

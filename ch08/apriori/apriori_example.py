@@ -18,6 +18,4 @@ rules = list(association_rules(dataset, freqsets, support, minlift=30.0))
 rules.sort(key=(lambda ar: -ar.lift))
 for ar in rules:
     print('{} -> {} (lift = {:.4})'
-          .format(set(ar.antecendent),
-                    set(ar.consequent),
-                    ar.lift))
+          .format(set(ar.antecendent), set(ar.consequent), ar.lift))
