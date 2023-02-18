@@ -20,7 +20,7 @@ mh.imsave('thresholded.png', threshed.astype(np.uint8)*255)
 
 im16 = mh.gaussian_filter(image, 16)
 
-# Repeat the thresholding operations with the blurred image 
+# Repeat the thresholding operations with the blurred image
 thresh = mh.thresholding.otsu(im16.astype(np.uint8))
 threshed = (im16 > thresh)
 plt.figure()

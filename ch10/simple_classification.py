@@ -67,4 +67,3 @@ scores = model_selection.cross_val_score(
     clf, haralick_plus_chists, labels, cv=cv)
 print('Accuracy (Leave-one-out) with Logistic Regression [texture features + color histograms]: {:.1%}'.format(
     scores.mean()))
-

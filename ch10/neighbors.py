@@ -27,7 +27,7 @@ images.sort()
 
 for fname in images:
     imc = mh.imread(fname)
-    imc = imc[200:-200,200:-200]
+    imc = imc[200:-200, 200:-200]
     haralicks.append(texture(mh.colors.rgb2grey(imc)))
     chists.append(chist(imc))
 
@@ -41,14 +41,14 @@ features = sc.fit_transform(features)
 dists = distance.squareform(distance.pdist(features))
 
 print('Plotting...')
-fig, axes = plt.subplots(2, 9, figsize=(16,8))
+fig, axes = plt.subplots(2, 9, figsize=(16, 8))
 
 # Remove ticks from all subplots
 for ax in axes.flat:
     ax.set_xticks([])
     ax.set_yticks([])
 
-for ci,i in enumerate(range(0,90,10)):
+for ci, i in enumerate(range(0, 90, 10)):
     left = images[i]
     dists_left = dists[i]
     right = dists_left.argsort()

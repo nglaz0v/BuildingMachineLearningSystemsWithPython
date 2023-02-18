@@ -19,16 +19,17 @@ basedir = 'AnimTransDistr'
 print('This script will test classification of the AnimTransDistr dataset')
 
 C_range = 10.0 ** np.arange(-4, 3)
-grid = GridSearchCV(LogisticRegression(), param_grid={'C' : C_range})
+grid = GridSearchCV(LogisticRegression(), param_grid={'C': C_range})
 clf = Pipeline([('preproc', StandardScaler()),
                 ('classifier', grid)])
+
 
 def features_for(im):
     from features import chist
     im = mh.imread(im)
     img = mh.colors.rgb2grey(im).astype(np.uint8)
-    return np.concatenate([mh.features.haralick(img).ravel(),
-                                chist(im)])
+    return np.concatenate([mh.features.haralick(img).ravel(), chist(im)])
+
 
 def images():
     '''Iterate over all (image,label) pairs
@@ -39,6 +40,7 @@ def images():
         images = glob('{}/{}/*.jpg'.format(basedir, cl))
         for im in sorted(images):
             yield im, ci
+
 
 classes = [
     'Anims',
@@ -57,7 +59,7 @@ for im, ell in images():
 ifeatures = np.array(ifeatures)
 labels = np.array(labels)
 
-cv = model_selection.KFold(len(ifeatures), 5, shuffle=True, random_state=123)
+cv = model_selection.KFold(5, shuffle=True, random_state=123)
 scores0 = model_selection.cross_val_score(
     clf, ifeatures, labels, cv=cv)
 print('Accuracy (5 fold x-val) with Logistic Regression [image features]: {:.1%}'.format(
@@ -70,7 +72,7 @@ from mahotas.features import surf
 
 print('Computing SURF descriptors...')
 alldescriptors = []
-for im,_ in images():
+for im, _ in images():
     im = mh.imread(im, as_grey=True)
     im = im.astype(np.uint8)
 
