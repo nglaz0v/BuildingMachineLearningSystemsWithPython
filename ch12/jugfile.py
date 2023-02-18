@@ -25,6 +25,7 @@ def print_final_result(oname, value):
     with open(oname, 'w') as output:
         output.write("Final result: {0}\n".format(value))
 
+
 input = 2
 y = double(input)
 z = double(y)

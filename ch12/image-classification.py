@@ -19,6 +19,7 @@ path.append('../ch10')
 
 basedir = '../SimpleImageDataset/'
 
+
 @TaskGenerator
 def compute_texture(im):
     '''Compute features for an image
@@ -37,11 +38,13 @@ def compute_texture(im):
     imc = mh.imread(im)
     return texture(mh.colors.rgb2grey(imc))
 
+
 @TaskGenerator
 def chist(fname):
     from features import chist as color_histogram
     im = mh.imread(fname)
     return color_histogram(im)
+
 
 @TaskGenerator
 def compute_lbp(fname):
@@ -60,7 +63,7 @@ def accuracy(features, labels):
     # We use logistic regression because it is very fast.
     # Feel free to experiment with other classifiers
     clf = Pipeline([('preproc', StandardScaler()),
-                ('classifier', LogisticRegression())])
+                    ('classifier', LogisticRegression())])
     cv = cross_validation.LeaveOneOut(len(features))
     scores = cross_validation.cross_val_score(
         clf, features, labels, cv=cv)
@@ -70,7 +73,7 @@ def accuracy(features, labels):
 @TaskGenerator
 def print_results(scores):
     with open('results.image.txt', 'w') as output:
-        for k,v in scores:
+        for k, v in scores:
             output.write('Accuracy (LOO x-val) with Logistic Regression [{0}]: {1:.1%}\n'.format(
                 k, v.mean()))
 
@@ -89,7 +92,7 @@ for fname in sorted(images):
     haralicks.append(compute_texture(fname))
     chists.append(chist(fname))
     lbps.append(compute_lbp(fname))
-    labels.append(fname[:-len('00.jpg')]) # The class is encoded in the filename as xxxx00.jpg
+    labels.append(fname[:-len('00.jpg')])  # The class is encoded in the filename as xxxx00.jpg
 
 haralicks = to_array(haralicks)
 chists = to_array(chists)
@@ -110,7 +113,6 @@ print_results([
         ('base', scores_base),
         ('chists', scores_chist),
         ('lbps', scores_lbps),
-        ('combined' , scores_combined),
-        ('combined_all' , scores_combined_all),
+        ('combined', scores_combined),
+        ('combined_all', scores_combined_all),
         ])
-
