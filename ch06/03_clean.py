@@ -16,7 +16,7 @@ import re
 import numpy as np
 
 from sklearn.metrics import precision_recall_curve, roc_curve, auc
-from sklearn.cross_validation import ShuffleSplit
+from sklearn.model_selection import ShuffleSplit
 from sklearn.pipeline import Pipeline
 
 from utils import plot_pr
@@ -180,6 +180,7 @@ def get_best_model():
     best_clf = create_ngram_model(best_params)
 
     return best_clf
+
 
 if __name__ == "__main__":
     X_orig, Y_orig = load_sanders_data()

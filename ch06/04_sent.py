@@ -18,7 +18,7 @@ import nltk
 import numpy as np
 
 from sklearn.metrics import precision_recall_curve, roc_curve, auc
-from sklearn.cross_validation import ShuffleSplit
+from sklearn.model_selection import ShuffleSplit
 
 from utils import plot_pr
 from utils import load_sanders_data
@@ -27,7 +27,7 @@ from utils import log_false_positives
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline, FeatureUnion
-from sklearn.grid_search import GridSearchCV
+from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import f1_score
 from sklearn.base import BaseEstimator
 
@@ -130,6 +130,7 @@ class LinguisticVectorizer(BaseEstimator):
 
         return result
 
+
 emo_repl = {
     # positive emoticons
     "&lt;3": " good ",
@@ -189,8 +190,8 @@ def create_union_model(params=None):
     ling_stats = LinguisticVectorizer()
     all_features = FeatureUnion(
         [('ling', ling_stats), ('tfidf', tfidf_ngrams)])
-    #all_features = FeatureUnion([('tfidf', tfidf_ngrams)])
-    #all_features = FeatureUnion([('ling', ling_stats)])
+    # all_features = FeatureUnion([('tfidf', tfidf_ngrams)])
+    # all_features = FeatureUnion([('ling', ling_stats)])
     clf = MultinomialNB()
     pipeline = Pipeline([('all', all_features), ('clf', clf)])
 
@@ -306,13 +307,14 @@ def get_best_model():
 
     return best_clf
 
+
 if __name__ == "__main__":
     X_orig, Y_orig = load_sanders_data()
-    #from sklearn.utils import shuffle
+    # from sklearn.utils import shuffle
     # print "shuffle, sample"
-    #X_orig, Y_orig = shuffle(X_orig, Y_orig)
-    #X_orig = X_orig[:100,]
-    #Y_orig = Y_orig[:100,]
+    # X_orig, Y_orig = shuffle(X_orig, Y_orig)
+    # X_orig = X_orig[:100,]
+    # Y_orig = Y_orig[:100,]
     classes = np.unique(Y_orig)
     for c in classes:
         print("#%s: %i" % (c, sum(Y_orig == c)))

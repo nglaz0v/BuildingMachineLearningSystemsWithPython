@@ -15,7 +15,7 @@ start_time = time.time()
 import numpy as np
 
 from sklearn.metrics import precision_recall_curve, roc_curve, auc
-from sklearn.cross_validation import ShuffleSplit
+from sklearn.model_selection import ShuffleSplit
 
 from utils import plot_pr
 from utils import load_sanders_data
@@ -23,7 +23,7 @@ from utils import tweak_labels
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.pipeline import Pipeline
-from sklearn.grid_search import GridSearchCV
+from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import f1_score
 
 from sklearn.naive_bayes import MultinomialNB
@@ -71,8 +71,7 @@ def grid_search_model(clf_factory, X, Y):
 
 def train_model(clf, X, Y, name="NB ngram", plot=False):
     # create it again for plotting
-    cv = ShuffleSplit(
-        n=len(X), n_iter=10, test_size=0.3, indices=True, random_state=0)
+    cv = ShuffleSplit(n_splits=10, test_size=0.3, random_state=0)
 
     train_errors = []
     test_errors = []
@@ -81,7 +80,7 @@ def train_model(clf, X, Y, name="NB ngram", plot=False):
     pr_scores = []
     precisions, recalls, thresholds = [], [], []
 
-    for train, test in cv:
+    for train, test in cv.split(X):
         X_train, y_train = X[train], Y[train]
         X_test, y_test = X[test], Y[test]
 
@@ -144,6 +143,7 @@ def get_best_model():
     best_clf = create_ngram_model(best_params)
 
     return best_clf
+
 
 if __name__ == "__main__":
     X_orig, Y_orig = load_sanders_data()

@@ -18,7 +18,7 @@ start_time = time.time()
 import numpy as np
 
 from sklearn.metrics import precision_recall_curve, roc_curve, auc
-from sklearn.cross_validation import ShuffleSplit
+from sklearn.model_selection import ShuffleSplit
 
 from utils import plot_pr
 from utils import load_sanders_data
@@ -39,8 +39,7 @@ def create_ngram_model():
 
 
 def train_model(clf_factory, X, Y, name="NB ngram", plot=False):
-    cv = ShuffleSplit(
-        n=len(X), n_iter=10, test_size=0.3, random_state=0)
+    cv = ShuffleSplit(n_splits=10, test_size=0.3, random_state=0)
 
     train_errors = []
     test_errors = []
@@ -49,7 +48,7 @@ def train_model(clf_factory, X, Y, name="NB ngram", plot=False):
     pr_scores = []
     precisions, recalls, thresholds = [], [], []
 
-    for train, test in cv:
+    for train, test in cv.split(X):
         X_train, y_train = X[train], Y[train]
         X_test, y_test = X[test], Y[test]
 

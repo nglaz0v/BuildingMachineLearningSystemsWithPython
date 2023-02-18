@@ -160,7 +160,7 @@ def download_tweets(fetch_list, raw_dir):
               (item[2], idx + 1, len(fetch_list)))
 
         try:
-            #import pdb;pdb.set_trace()
+            # import pdb;pdb.set_trace()
             response = api.statuses.show(_id=item[2])
 
             if response.rate_limit_remaining <= 0:
