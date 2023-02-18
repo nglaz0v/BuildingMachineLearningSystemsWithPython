@@ -5,12 +5,12 @@
 #
 # It is made available under the MIT License
 
-import scipy as sp
+import numpy as np
 
 
 def tfidf(t, d, D):
     tf = float(d.count(t)) / sum(d.count(w) for w in set(d))
-    idf = sp.log(float(len(D)) / (len([doc for doc in D if t in doc])))
+    idf = np.lib.scimath.log(float(len(D)) / (len([doc for doc in D if t in doc])))
     return tf * idf
 
 

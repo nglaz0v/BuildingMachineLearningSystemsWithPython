@@ -28,6 +28,7 @@ class StemmedTfidfVectorizer(TfidfVectorizer):
         analyzer = super(TfidfVectorizer, self).build_analyzer()
         return lambda doc: (english_stemmer.stem(w) for w in analyzer(doc))
 
+
 vectorizer = StemmedTfidfVectorizer(min_df=10, max_df=0.5,
                                     stop_words='english', decode_error='ignore'
                                     )
@@ -50,7 +51,7 @@ noise_post = graphics[5][1]
 analyzer = vectorizer.build_analyzer()
 print(list(analyzer(noise_post)))
 
-useful = set(analyzer(noise_post)).intersection(vectorizer.get_feature_names())
+useful = set(analyzer(noise_post)).intersection(vectorizer.get_feature_names_out())
 print(sorted(useful))
 # ['ac', 'birmingham', 'host', 'kingdom', 'nntp', 'sorri', 'test', 'uk', 'unit', 'univers']
 

@@ -11,6 +11,7 @@
 
 import os
 import scipy as sp
+import numpy as np
 from scipy.stats import norm
 from matplotlib import pylab
 from sklearn.cluster import KMeans
@@ -18,7 +19,7 @@ from sklearn.cluster import KMeans
 from utils import CHART_DIR
 
 seed = 2
-sp.random.seed(seed)  # to reproduce the data later on
+np.random.seed(seed)  # to reproduce the data later on
 
 num_clusters = 3
 
@@ -51,8 +52,8 @@ yw2 = norm(loc=0.7, scale=.15).rvs(20)
 xw3 = norm(loc=0.2, scale=.15).rvs(20)
 yw3 = norm(loc=0.8, scale=.15).rvs(20)
 
-x = sp.append(sp.append(xw1, xw2), xw3)
-y = sp.append(sp.append(yw1, yw2), yw3)
+x = np.append(np.append(xw1, xw2), xw3)
+y = np.append(np.append(yw1, yw2), yw3)
 
 i = 1
 plot_clustering(x, y, "Vectors")
@@ -63,12 +64,12 @@ i += 1
 
 # 1 iteration ####################
 
-mx, my = sp.meshgrid(sp.arange(0, 1, 0.001), sp.arange(0, 1, 0.001))
+mx, my = np.meshgrid(np.arange(0, 1, 0.001), np.arange(0, 1, 0.001))
 
 km = KMeans(init='random', n_clusters=num_clusters, verbose=1,
             n_init=1, max_iter=1,
             random_state=seed)
-km.fit(sp.array(list(zip(x, y))))
+km.fit(np.array(list(zip(x, y))))
 
 Z = km.predict(sp.c_[mx.ravel(), my.ravel()]).reshape(mx.shape)
 
@@ -90,7 +91,7 @@ i += 1
 km = KMeans(init='random', n_clusters=num_clusters, verbose=1,
             n_init=1, max_iter=2,
             random_state=seed)
-km.fit(sp.array(list(zip(x, y))))
+km.fit(np.array(list(zip(x, y))))
 
 Z = km.predict(sp.c_[mx.ravel(), my.ravel()]).reshape(mx.shape)
 
@@ -120,7 +121,7 @@ i += 1
 km = KMeans(init='random', n_clusters=num_clusters, verbose=1,
             n_init=1, max_iter=10,
             random_state=seed)
-km.fit(sp.array(list(zip(x, y))))
+km.fit(np.array(list(zip(x, y))))
 
 Z = km.predict(sp.c_[mx.ravel(), my.ravel()]).reshape(mx.shape)
 

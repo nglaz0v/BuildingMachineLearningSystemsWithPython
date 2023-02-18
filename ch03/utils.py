@@ -19,4 +19,3 @@ CHART_DIR = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), "charts")
 if not os.path.exists(CHART_DIR):
     os.mkdir(CHART_DIR)
-
