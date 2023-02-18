@@ -10,14 +10,21 @@
 # The first edition of the book NumPy functions only for this operation. See
 # the file boston1numpy.py for that version.
 
-from sklearn.datasets import load_boston
+import pandas as pd
+import numpy as np
+# from sklearn.datasets import load_boston
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from matplotlib import pyplot as plt
 
-boston = load_boston()
-x = boston.data
-y = boston.target
+
+# boston = load_boston()
+data_url = "http://lib.stat.cmu.edu/datasets/boston"
+raw_df = pd.read_csv(data_url, sep="\s+", skiprows=22, header=None)
+boston_data = np.hstack([raw_df.values[::2, :], raw_df.values[1::2, :2]])
+boston_target = raw_df.values[1::2, 2]
+x = boston_data
+y = boston_target
 
 # Fitting a model is trivial: call the ``fit`` method in LinearRegression:
 lr = LinearRegression()
@@ -30,10 +37,10 @@ print('RMSE: {}'.format(rmse))
 
 fig, ax = plt.subplots()
 # Plot a diagonal (for reference):
-ax.plot([0, 50], [0, 50], '-', color=(.9,.3,.3), lw=4)
+ax.plot([0, 50], [0, 50], '-', color=(.9, .3, .3), lw=4)
 
 # Plot the prediction versus real:
-ax.scatter(lr.predict(x), boston.target)
+ax.scatter(lr.predict(x), boston_target)
 
 ax.set_xlabel('predicted')
 ax.set_ylabel('real')

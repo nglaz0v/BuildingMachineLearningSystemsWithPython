@@ -66,8 +66,7 @@ print('')
 fig, ax = plt.subplots()
 y = target
 ax.scatter(y, pred, c='k')
-ax.plot([-5,-1], [-5,-1], 'r-', lw=2)
+ax.plot([-5, -1], [-5, -1], 'r-', lw=2)
 ax.set_xlabel('Actual value')
 ax.set_ylabel('Predicted value')
 fig.savefig('Figure_10k_scatter_EN_l1_ratio.png')
-

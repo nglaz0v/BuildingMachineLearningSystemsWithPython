@@ -8,14 +8,21 @@
 # This script fits several forms of penalized regression
 
 from __future__ import print_function
+import pandas as pd
 import numpy as np
 from sklearn.model_selection import KFold
 from sklearn.linear_model import LinearRegression, ElasticNet, Lasso, Ridge
 from sklearn.metrics import r2_score
-from sklearn.datasets import load_boston
-boston = load_boston()
-x = boston.data
-y = boston.target
+# from sklearn.datasets import load_boston
+
+
+# boston = load_boston()
+data_url = "http://lib.stat.cmu.edu/datasets/boston"
+raw_df = pd.read_csv(data_url, sep="\s+", skiprows=22, header=None)
+boston_data = np.hstack([raw_df.values[::2, :], raw_df.values[1::2, :2]])
+boston_target = raw_df.values[1::2, 2]
+x = boston_data
+y = boston_target
 
 for name, met in [
         ('linear regression', LinearRegression()),

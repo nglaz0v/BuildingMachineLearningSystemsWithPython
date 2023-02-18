@@ -8,16 +8,21 @@
 
 # This script plots prediction-vs-actual on training set for the Boston dataset
 # using OLS regression
+import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
-from sklearn.datasets import load_boston
+# from sklearn.datasets import load_boston
 from sklearn.metrics import mean_squared_error
 from matplotlib import pyplot as plt
 
-boston = load_boston()
+# boston = load_boston()
+data_url = "http://lib.stat.cmu.edu/datasets/boston"
+raw_df = pd.read_csv(data_url, sep="\s+", skiprows=22, header=None)
+boston_data = np.hstack([raw_df.values[::2, :], raw_df.values[1::2, :2]])
+boston_target = raw_df.values[1::2, 2]
 
-x = boston.data
-y = boston.target
+x = boston_data
+y = boston_target
 
 lr = LinearRegression()
 lr.fit(x, y)
