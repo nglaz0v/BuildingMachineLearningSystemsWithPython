@@ -24,6 +24,7 @@ y = np.hstack((np.zeros(num_per_class),
 def lr_model(clf, X):
     return 1.0 / (1.0 + np.exp(-(clf.intercept_ + clf.coef_ * X)))
 
+
 from sklearn.linear_model import LogisticRegression
 logclf = LogisticRegression()
 print(logclf)
@@ -44,6 +45,7 @@ pyplot.savefig(
 
 def lin_model(clf, X):
     return clf.intercept_ + clf.coef_ * X
+
 
 from sklearn.linear_model import LinearRegression
 clf = LinearRegression()

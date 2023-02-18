@@ -25,7 +25,7 @@ from collections import defaultdict
 
 from data import DATA_DIR
 
-#filename = os.path.join(DATA_DIR, "posts-2011-12.xml")
+# filename = os.path.join(DATA_DIR, "posts-2011-12.xml")
 filename = os.path.join(DATA_DIR, "posts-2012.xml")
 print("Reading from xml %s" % filename)
 filename_filtered = os.path.join(DATA_DIR, "filtered.tsv")
@@ -77,6 +77,7 @@ def filter_html(s):
     num_text_tokens = link_free_s.count(" ")
 
     return link_free_s, num_text_tokens, num_code_lines, link_count, num_images
+
 
 years = defaultdict(int)
 num_questions = 0
@@ -156,6 +157,7 @@ def parsexml(filename):
             yield values
 
             root.clear()  # preserve memory
+
 
 with open(filename_filtered, "w") as f:
     for values in parsexml(filename):

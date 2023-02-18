@@ -12,7 +12,7 @@ import numpy as np
 
 from sklearn.metrics import classification_report
 from sklearn.metrics import precision_recall_curve, roc_curve, auc
-from sklearn.cross_validation import KFold
+from sklearn.model_selection import KFold
 from sklearn import neighbors
 
 from data import chosen, chosen_meta
@@ -75,10 +75,11 @@ prepare_sent_features()
 def get_features(aid):
     return tuple(meta[aid][fn] for fn in feature_names)
 
+
 qa_X = np.asarray([get_features(aid) for aid in all_answers])
 
 classifying_answer = "good"
-#classifying_answer = "poor"
+# classifying_answer = "poor"
 
 if classifying_answer == "good":
     # Score > 0 tests => positive class is good answer
@@ -93,8 +94,8 @@ else:
 for idx, feat in enumerate(feature_names):
     plot_feat_hist([(qa_X[:, idx], feat)])
 
-#plot_feat_hist([(qa_X[:, idx], feature_names[idx]) for idx in [1,0]], 'feat_hist_two.png')
-#plot_feat_hist([(qa_X[:, idx], feature_names[idx]) for idx in [3,4,5,6]], 'feat_hist_four.png')
+# plot_feat_hist([(qa_X[:, idx], feature_names[idx]) for idx in [1,0]], 'feat_hist_two.png')
+# plot_feat_hist([(qa_X[:, idx], feature_names[idx]) for idx in [3,4,5,6]], 'feat_hist_four.png')
 
 avg_scores_summary = []
 
@@ -172,7 +173,7 @@ def measure(clf_class, parameters, name, data_size=None, plot=False):
     print("Medium clone is #%i" % medium)
 
     if plot:
-        #plot_roc(roc_scores[medium], name, fprs[medium], tprs[medium])
+        # plot_roc(roc_scores[medium], name, fprs[medium], tprs[medium])
         plot_pr(pr_scores[medium], name, precisions[medium],
                 recalls[medium], classifying_answer + " answers")
 
@@ -197,7 +198,7 @@ def measure(clf_class, parameters, name, data_size=None, plot=False):
 
 
 def bias_variance_analysis(clf_class, parameters, name):
-    #import ipdb;ipdb.set_trace()
+    # import ipdb;ipdb.set_trace()
     data_sizes = np.arange(60, 2000, 4)
 
     train_errors = []
@@ -228,9 +229,10 @@ def k_complexity_analysis(clf_class, parameters):
 
     plot_k_complexity(ks, train_errors, test_errors)
 
+
 for k in [5]:
 # for k in [5, 10, 40]:
-    #measure(neighbors.KNeighborsClassifier, {'n_neighbors': k}, "%iNN" % k)
+    # measure(neighbors.KNeighborsClassifier, {'n_neighbors': k}, "%iNN" % k)
     bias_variance_analysis(neighbors.KNeighborsClassifier, {
                            'n_neighbors': k}, "%iNN" % k)
     k_complexity_analysis(neighbors.KNeighborsClassifier, {'n_neighbors': k})

@@ -57,6 +57,7 @@ def data(filename, col=None):
         else:
             yield data
 
+
 posts_to_keep = set()
 found_questions = 0
 
