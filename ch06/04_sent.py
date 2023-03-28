@@ -228,8 +228,7 @@ def __grid_search_model(clf_factory, X, Y):
 
 def train_model(clf, X, Y, name="NB ngram", plot=False):
     # create it again for plotting
-    cv = ShuffleSplit(
-        n=len(X), n_iter=10, test_size=0.3, random_state=0)
+    cv = ShuffleSplit(n_splits=10, test_size=0.3, random_state=0)
 
     train_errors = []
     test_errors = []
@@ -240,7 +239,7 @@ def train_model(clf, X, Y, name="NB ngram", plot=False):
 
     clfs = []  # just to later get the median
 
-    for train, test in cv:
+    for train, test in cv.split(X):
         X_train, y_train = X[train], Y[train]
         X_test, y_test = X[test], Y[test]
 
@@ -267,7 +266,7 @@ def train_model(clf, X, Y, name="NB ngram", plot=False):
 
     if plot:
         scores_to_sort = pr_scores
-        median = np.argsort(scores_to_sort)[len(scores_to_sort) / 2]
+        median = np.argsort(scores_to_sort)[len(scores_to_sort) // 2]
 
         plot_pr(pr_scores[median], name, phase, precisions[median],
                 recalls[median], label=name)

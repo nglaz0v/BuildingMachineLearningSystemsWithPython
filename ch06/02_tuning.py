@@ -106,7 +106,7 @@ def train_model(clf, X, Y, name="NB ngram", plot=False):
 
     if plot:
         scores_to_sort = pr_scores
-        median = np.argsort(scores_to_sort)[len(scores_to_sort) / 2]
+        median = np.argsort(scores_to_sort)[len(scores_to_sort) // 2]
 
         plot_pr(pr_scores[median], name, phase, precisions[median],
                 recalls[median], label=name)

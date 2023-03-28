@@ -74,7 +74,7 @@ def train_model(clf_factory, X, Y, name="NB ngram", plot=False):
         thresholds.append(pr_thresholds)
 
     scores_to_sort = pr_scores
-    median = np.argsort(scores_to_sort)[len(scores_to_sort) / 2]
+    median = np.argsort(scores_to_sort)[len(scores_to_sort) // 2]
 
     if plot:
         plot_pr(pr_scores[median], name, "01", precisions[median],
